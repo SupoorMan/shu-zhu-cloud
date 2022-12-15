@@ -1,6 +1,7 @@
 package com.szc.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="ConfigInfo对象", description="配置表")
+@ApiModel(value = "ConfigInfo对象", description = "配置表")
 public class ConfigInfo implements Serializable {
 
 
@@ -28,6 +29,7 @@ public class ConfigInfo implements Serializable {
     private Integer id;
 
     @ApiModelProperty(value = "key")
+    @TableField("`key`")
     private String key;
 
     @ApiModelProperty(value = "value")

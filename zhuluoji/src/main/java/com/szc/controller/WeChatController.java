@@ -17,10 +17,7 @@ import com.szc.util.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +38,13 @@ public class WeChatController {
     private static final String appid = "wxcfa80ada427f5deb";
     private static final String secret = "0058ba1ae1ba027c7b9e0a161c4a8bcd";
     private static final String code2Session = "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code";
+
+
+    @GetMapping("/test")
+    public Result test() {
+        return ResultUtil.success("辣鸡李函珏!");
+    }
+
 
     @PostMapping("/login")
     @ApiOperation(value = "微信小程序登录", notes = "微信登录获取OpenId,SessionKey,unionid")
@@ -68,6 +72,11 @@ public class WeChatController {
             appletUser.setAvatarUrl(weChatLogin.getUserInfo().getAvatarUrl());
             appletUser.setGender(weChatLogin.getUserInfo().getGender());
             appletUserService.save(appletUser);
+        } else {
+            appletUser.setNickname(weChatLogin.getUserInfo().getNickName());
+            appletUser.setAvatarUrl(weChatLogin.getUserInfo().getAvatarUrl());
+            appletUser.setGender(weChatLogin.getUserInfo().getGender());
+            appletUserService.updateById(appletUser);
         }
 
         //删除作废的token

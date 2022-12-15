@@ -5,6 +5,7 @@ import com.szc.result.Result;
 import com.szc.result.ResultUtil;
 import com.szc.service.LoginLogService;
 import com.szc.transfer.LoginLogPage;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Poor
  * @since 2022-12-13
  */
+@Api(tags = "小程序登录记录")
 @RestController
 @RequestMapping("/loginLog")
 public class LoginLogController {

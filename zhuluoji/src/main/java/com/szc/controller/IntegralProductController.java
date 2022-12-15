@@ -5,13 +5,11 @@ import com.szc.entity.IntegralProduct;
 import com.szc.result.Result;
 import com.szc.result.ResultUtil;
 import com.szc.service.IntegralProductService;
+import com.szc.transfer.IntegralProductPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -30,19 +28,31 @@ public class IntegralProductController {
     private IntegralProductService integralProductService;
 
 
+    @GetMapping("/page")
+    @ApiOperation(value = "积分商品分页查询", notes = "分页查询")
+    public Result page(IntegralProductPage page) {
+        return ResultUtil.success(integralProductService.pages(page));
+    }
+
     @PostMapping("/add")
     @ApiOperation(value = "新增积分商品")
-    public Result add(@RequestBody IntegralProduct product){
-        //TODO oss 图文
+    public Result add(@RequestBody IntegralProduct product) {
         integralProductService.save(product);
         return ResultUtil.success();
     }
 
     @PostMapping("/update")
     @ApiOperation(value = "更新积分商品")
-    public Result update(@RequestBody IntegralProduct product){
-        //TODO oss 图文
+    public Result update(@RequestBody IntegralProduct product) {
         integralProductService.updateById(product);
+        return ResultUtil.success();
+    }
+
+
+    @PostMapping("/delete")
+    @ApiOperation(value = "删除积分商品")
+    public Result delete(@RequestBody IntegralProduct product) {
+        integralProductService.removeById(product.getId());
         return ResultUtil.success();
     }
 

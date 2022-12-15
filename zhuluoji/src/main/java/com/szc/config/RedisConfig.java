@@ -24,6 +24,7 @@ public class RedisConfig {
 
     @Autowired
     private RedisProperties redisProperties;
+//    private RedisProperty redisProperties;
 
     @Bean
     public LettuceConnectionFactory lettuceConnectionFactory() {

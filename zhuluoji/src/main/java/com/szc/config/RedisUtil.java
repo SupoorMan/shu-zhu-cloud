@@ -22,14 +22,14 @@ public class RedisUtil {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    //private static RedisUtil redisUtil = new RedisUtil();
+    private static RedisUtil redisUtil = new RedisUtil();
 
     private RedisUtil() {
     }
 
-    //public static RedisUtil client() {
-//        return redisUtil;
-//    }
+    public static RedisUtil client() {
+        return redisUtil;
+    }
 
 
 //    public void setIfAbsent(String key,String value){

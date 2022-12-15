@@ -49,6 +49,9 @@ public class Orders implements Serializable {
     @ApiModelProperty(value = "订单状态: -1.取消 0.下单未支付 1.下单支付完成 2.发货中 3.签收完成")
     private Integer status;
 
+    @ApiModelProperty(value = "状态: 0.正常 1.用户删除 2.系统删除")
+    private Integer state;
+
     @ApiModelProperty(value = "支付时间")
     private LocalDateTime payTime;
 

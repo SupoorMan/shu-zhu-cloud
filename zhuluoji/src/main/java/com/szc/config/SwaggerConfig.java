@@ -70,6 +70,7 @@ public class SwaggerConfig {
     private List<SecurityScheme> securitySchemes() {
         List<SecurityScheme> securitySchemes = new ArrayList<>();
         securitySchemes.add(new ApiKey("token", "token", "header"));
+        securitySchemes.add(new ApiKey("uid", "uid", "header"));
         return securitySchemes;
     }
 

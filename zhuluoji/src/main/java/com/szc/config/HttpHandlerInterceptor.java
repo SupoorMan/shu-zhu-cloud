@@ -9,7 +9,7 @@ import com.szc.service.AppletUserService;
 import com.szc.tool.JwtTool;
 import com.szc.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,7 +20,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * 拦截器
  */
-@Configuration
+
+@SpringBootConfiguration
 public class HttpHandlerInterceptor implements HandlerInterceptor {
 
     @Autowired

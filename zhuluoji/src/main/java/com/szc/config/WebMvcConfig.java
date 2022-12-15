@@ -1,21 +1,28 @@
 package com.szc.config;
 
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.*;
 
 
 @SpringBootConfiguration
 public class WebMvcConfig implements WebMvcConfigurer {
 
+    @Bean
+    public HandlerInterceptor getHandlerInterceptor() {
+        return new HttpHandlerInterceptor();
+    }
 
     /**
      * 设置拦截规则
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new HttpHandlerInterceptor())
+        registry.addInterceptor(getHandlerInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/wx/**")
+                .excludePathPatterns("/file/**")
                 .excludePathPatterns("/doc.html")
                 .excludePathPatterns("/swagger-ui/index.html")
                 .excludePathPatterns("/swagger-resources/**")
