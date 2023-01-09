@@ -6,11 +6,13 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.szc.config.RedisUtil;
 import com.szc.entity.AppletUser;
 import com.szc.entity.LoginLog;
+import com.szc.oss.OssUtil;
 import com.szc.result.Result;
 import com.szc.result.ResultUtil;
 import com.szc.service.AppletUserService;
 import com.szc.service.LoginLogService;
 import com.szc.tool.JwtTool;
+import com.szc.transfer.OSSObjects;
 import com.szc.transfer.WeChatLogin;
 import com.szc.util.HttpUtils;
 import com.szc.util.StringUtil;
@@ -35,10 +37,6 @@ public class WeChatController {
     @Autowired
     private LoginLogService loginLogService;
 
-    private static final String appid = "wxcfa80ada427f5deb";
-    private static final String secret = "0058ba1ae1ba027c7b9e0a161c4a8bcd";
-    private static final String code2Session = "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code";
-
 
     @GetMapping("/test")
     public Result test() {
@@ -50,7 +48,8 @@ public class WeChatController {
     @ApiOperation(value = "微信小程序登录", notes = "微信登录获取OpenId,SessionKey,unionid")
     public Result login(@RequestBody WeChatLogin weChatLogin, HttpServletResponse response) {
         //组装获得code2Session参数 请求weixin 返回OpenId,SessionKey,unionid
-        String url = String.format(code2Session, appid, secret, weChatLogin.getCode());
+        OSSObjects ssObjects = OssUtil.oSSObjects;
+        String url = String.format(ssObjects.getCode2Session(), ssObjects.getAppid(), ssObjects.getAccessKeySecret(), weChatLogin.getCode());
         String res = HttpUtils.sendGet(url);
 
         if (StringUtil.isEmpty(res)) {
@@ -103,6 +102,7 @@ public class WeChatController {
         loginLog.setUserId(appletUser.getId());
         loginLogService.save(loginLog);
 
+        appletUser.setSessionKey(resJson.getString("session_key"));
         return ResultUtil.success(appletUser);
     }
 
